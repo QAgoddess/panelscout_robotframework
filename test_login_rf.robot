@@ -4,7 +4,7 @@ Documentation    Suite description #automated tests for scout website
 
 
 *** Variables ***
-${LOGIN URL}        https://scouts-test.futbolkolektyw.pl/en
+${LOGIN URL}        https://dareit.futbolkolektyw.pl/en
 ${BROWSER}      Chrome
 ${SIGN IN BUTTON}       xpath=//*[text()='Sign in']
 ${EMAILINPUT}       xpath=//*[@id='login']
@@ -20,6 +20,8 @@ ${NAMEINPUT}        xpath=//input[@name='name']
 ${SURNAMEINPUT}     xpath=//input[@name='surname']
 ${AGEINPUT}     xpath=//input[@name='age']
 ${MAINPOSITION}     xpath=//input[@name='mainPosition']
+${EVENTS COUNT}     xpath=//div[4]/div/div[1]
+${ADD A PLAYER TITLE}       xpath=//header/div/h6
 
 
 *** Test Cases ***
@@ -76,17 +78,19 @@ Type in password
 Click on the Sign in button
     Click Element       ${SIGN IN BUTTON}
 Assert dashboard
-    Wait Until Element Is Visible       ${PAGELOGO}
+    Wait Until Element Is Visible       ${EVENTS COUNT}
     Title Should Be     Scouts panel
     Capture Page Screenshot  alert.png
 Click on the Sign Out Button
     Click Element       ${SIGN OUT BUTTON}
 Click On The Add A Player
+    Wait Until Element Is Visible       ${ADD A PLAYER}
     Click Element       ${ADD A PLAYER}
 Assert add a player
-    Wait Until Element Is Visible       ${SUBMIT BUTTON}
+    Wait Until Element Is Visible       ${MAINPOSITION}
     Title Should Be     Add player
 Type in name
+    Wait Until Element Is Visible       ${NAMEINPUT}
     Input Text      ${NAMEINPUT}      Krzysztof
 Type in surname
     Input Text      ${SURNAMEINPUT}      Kończyna
@@ -95,4 +99,5 @@ Type in age
 Type in main position
     Input Text      ${MAINPOSITION}      bramkarz
 Click On The Submit
+    Wait Until Element Is Visible       ${SUBMIT BUTTON}
     Click Element       ${SUBMIT BUTTON}

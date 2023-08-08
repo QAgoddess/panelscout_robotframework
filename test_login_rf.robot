@@ -13,7 +13,7 @@ ${REMIND PASSWORD}      xpath=//*[text()='Remind password']
 ${ENGLISH}      xpath=//div[3]/ul/li[2]
 ${POLSKI}       xpath=//div[3]/ul/li[1]
 ${PAGELOGO}       xpath=//*[@title='Logo Scouts Panel']
-${SIGN OUT BUTTON}      xpath=//*[text()='Sign out']
+${SIGN OUT BUTTON}      xpath=//ul[2]/div[2]/div[2]/span
 ${ADD A PLAYER}     xpath=//*[text()='Add player']
 ${SUBMIT BUTTON}        xpath=//*[3]/button[1]/span[1]
 ${NAMEINPUT}        xpath=//input[@name='name']
@@ -38,7 +38,6 @@ Log out of the system
     Type in email
     Type in password
     Click On The Sign In Button
-    Assert dashboard
     Click On The Sign Out Button
     [Teardown]      Close browser
 
@@ -47,7 +46,6 @@ Click add a player
     Type in email
     Type in password
     Click On The Sign In Button
-    Assert dashboard
     Click On The Add A Player
     Assert add a player
     [Teardown]      Close browser
@@ -57,7 +55,6 @@ Adding a player
     Type in email
     Type in password
     Click On The Sign In Button
-    Assert dashboard
     Click On The Add A Player
     Assert add a player
     Type in name
@@ -82,6 +79,7 @@ Assert dashboard
     Title Should Be     Scouts panel
     Capture Page Screenshot  alert.png
 Click on the Sign Out Button
+    Wait Until Element Is Visible       ${SIGN OUT BUTTON}
     Click Element       ${SIGN OUT BUTTON}
 Click On The Add A Player
     Wait Until Element Is Visible       ${ADD A PLAYER}

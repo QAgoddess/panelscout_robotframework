@@ -4,7 +4,7 @@ Documentation    Suite description #automated tests for scout website
 
 
 *** Variables ***
-${LOGIN URL}        https://dareit.futbolkolektyw.pl/en
+${LOGIN URL}        https://scouts-test.futbolkolektyw.pl/en
 ${BROWSER}      Chrome
 ${SIGN IN BUTTON}       xpath=//*[text()='Sign in']
 ${EMAILINPUT}       xpath=//*[@id='login']
@@ -22,6 +22,9 @@ ${AGEINPUT}     xpath=//input[@name='age']
 ${MAINPOSITION}     xpath=//input[@name='mainPosition']
 ${EVENTS COUNT}     xpath=//div[4]/div/div[1]
 ${ADD A PLAYER TITLE}       xpath=//header/div/h6
+${MAIN PAGE BUTTON}     xpath=//ul[1]/div[1]/div[1]
+${LAST CREATED PLAYER}      xpath=//div[3]/div/div/a[1]/button/span[1]
+${SHORTCUTS}        xpath=//div[2]/div/div/h2
 
 
 *** Test Cases ***
@@ -61,7 +64,12 @@ Adding a player
     Type in surname
     Type in age
     Type in main position
+    Sleep       8s
     Click On The Submit
+    Sleep       3s
+    Click On The Main Page
+    Sleep       8s
+    Check A Player
     [Teardown]      Close browser
 
 *** Keywords ***
@@ -88,7 +96,7 @@ Assert add a player
     Wait Until Element Is Visible       ${MAINPOSITION}
     Title Should Be     Add player
 Type in name
-    Wait Until Element Is Visible       ${NAMEINPUT}
+    Wait Until Element Is Visible       ${NAMEINPUT}        2
     Input Text      ${NAMEINPUT}      Krzysztof
 Type in surname
     Input Text      ${SURNAMEINPUT}      Kończyna
@@ -97,5 +105,11 @@ Type in age
 Type in main position
     Input Text      ${MAINPOSITION}      bramkarz
 Click On The Submit
-    Wait Until Element Is Visible       ${SUBMIT BUTTON}
+    Wait Until Element Is Visible       ${SUBMIT BUTTON}        5
     Click Element       ${SUBMIT BUTTON}
+Click On The Main Page
+    Wait Until Element Is Visible       ${MAIN PAGE BUTTON}        10
+    Click Element       ${MAIN PAGE BUTTON}
+Check A Player
+    Wait Until Element Is Visible       ${SHORTCUTS}        15
+    Element Text Should Be      ${LAST CREATED PLAYER}      KRZYSZTOF KOŃCZYNA
